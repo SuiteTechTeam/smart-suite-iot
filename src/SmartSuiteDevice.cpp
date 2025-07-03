@@ -21,7 +21,7 @@ SmartSuiteDevice::SmartSuiteDevice()
       mqttTopicData("smartsuite/sensors/data"),
       mqttTopicServoCommand("smartsuite/servo/command"),
       mqttTopicAlerts("smartsuite/alerts"),
-      httpEndpoint("https://smart-suite-iot.free.beeceptor.com"),
+      httpEndpoint("https://jsonplaceholder.typicode.com/posts"),
       clientId("SmartSuite_ESP32"),
       mqttPort(1883),
       lastSensorRead(0),

@@ -15,7 +15,7 @@ void setup() {
                             "smartsuite/alerts");
     
     // HTTP endpoint configuration
-    smartSuite.setHTTPEndpoint("https://smart-suite-iot.free.beeceptor.com");
+    smartSuite.setHTTPEndpoint("https://jsonplaceholder.typicode.com/posts");
     
     Serial.println("=== SmartSuite ESP32 Ready ===");
     Serial.println("Using ModestIoT Nano-framework");
