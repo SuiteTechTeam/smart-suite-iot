@@ -17,7 +17,7 @@ SmartSuiteDevice::SmartSuiteDevice()
       mqttClient(espClient),
       wifiSSID("Las4as.pe"),
       wifiPassword("L@s4as.pe"),
-      mqttBroker("test.mosquitto.org"),
+      mqttBroker("192.168.0.237"),
       mqttTopicData("smartsuite/sensors/data"),
       mqttTopicServoCommand("smartsuite/servo/command"),
       mqttTopicAlerts("smartsuite/alerts"),

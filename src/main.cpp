@@ -9,7 +9,7 @@ void setup() {
     
     // WiFi and MQTT configuration (these are the same defaults but shown for customization)
     smartSuite.setWiFiCredentials("Las4as.pe", "L@s4as.pe");
-    smartSuite.setMQTTConfig("test.mosquitto.org", 1883, 
+    smartSuite.setMQTTConfig("192.168.0.237", 1883, 
                             "smartsuite/sensors/data", 
                             "smartsuite/servo/command", 
                             "smartsuite/alerts");

@@ -113,7 +113,7 @@ Edita en `main.cpp` las credenciales de tu red:
 smartSuite.setWiFiCredentials("TU_RED_WIFI", "TU_PASSWORD");
 
 // Configuración MQTT
-smartSuite.setMQTTConfig("test.mosquitto.org", 1883, 
+smartSuite.setMQTTConfig("192.168.0.237", 1883, 
                         "smartsuite/sensors/data", 
                         "smartsuite/servo/command", 
                         "smartsuite/alerts");
@@ -128,7 +128,7 @@ smartSuite.setHTTPEndpoint("https://tu-endpoint.com");
 |---------------|-------------------|
 | WiFi SSID | "Las4as.pe" |
 | WiFi Password | "L@s4as.pe" |
-| MQTT Broker | "test.mosquitto.org" |
+| MQTT Broker | "192.168.0.237" |
 | MQTT Port | 1883 |
 | Sensor Interval | 2000ms |
 | MQTT Interval | 5000ms |
