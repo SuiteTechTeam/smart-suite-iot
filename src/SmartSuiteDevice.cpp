@@ -326,23 +326,48 @@ void SmartSuiteDevice::processMotionDetection() {
 }
 
 void SmartSuiteDevice::processGasDetection() {
+    static bool gasAlertActive = false;  // Variable estática para controlar el estado
+    static unsigned long lastServoAction = 0;  // Tiempo de la última acción del servo
+    const unsigned long servoDebounceTime = 5000;  // 5 segundos entre movimientos
+    
     float ppm = mq2Sensor.getGasLevel();
     
     Serial.print("MQ2 Estimated smoke level: ");
     Serial.print(ppm);
     Serial.println(" ppm");
     
+    unsigned long currentTime = millis();
+    
     if (ppm > 300) {
-        ledAlert.handle(Led::TURN_ON_COMMAND);
-        if (servo2.getCurrentPosition() != 90) {
-            servo2.handle(ServoActuator::MOVE_TO_90_COMMAND);
-            String severity = ppm > 600 ? "high" : "medium";
-            sendAlert("smoke", severity.c_str(), ("Smoke level detected: " + String(ppm) + " ppm").c_str());
+        // Solo activar si no está ya activo o ha pasado suficiente tiempo
+        if (!gasAlertActive || (currentTime - lastServoAction > servoDebounceTime)) {
+            ledAlert.handle(Led::TURN_ON_COMMAND);
+            
+            // Solo mover el servo si no está ya en la posición correcta
+            if (servo2.getCurrentPosition() != 90) {
+                servo2.handle(ServoActuator::MOVE_TO_90_COMMAND);
+                lastServoAction = currentTime;
+                gasAlertActive = true;
+                
+                String severity = ppm > 600 ? "high" : "medium";
+                sendAlert("smoke", severity.c_str(), ("Smoke level detected: " + String(ppm) + " ppm").c_str());
+                
+                Serial.println("🚨 Servo2 moved to 90° - Gas detection mode activated");
+            }
         }
     } else {
-        ledAlert.handle(Led::TURN_OFF_COMMAND);
-        if (servo2.getCurrentPosition() != 0) {
-            servo2.handle(ServoActuator::MOVE_TO_0_COMMAND);
+        // Solo desactivar si estaba activo y ha pasado suficiente tiempo
+        if (gasAlertActive && (currentTime - lastServoAction > servoDebounceTime)) {
+            ledAlert.handle(Led::TURN_OFF_COMMAND);
+            
+            // Solo mover el servo si no está ya en la posición correcta
+            if (servo2.getCurrentPosition() != 0) {
+                servo2.handle(ServoActuator::MOVE_TO_0_COMMAND);
+                lastServoAction = currentTime;
+                gasAlertActive = false;
+                
+                Serial.println("✅ Servo2 moved to 0° - Gas cleared");
+            }
         }
     }
 }

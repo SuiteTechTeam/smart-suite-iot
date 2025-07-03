@@ -55,7 +55,7 @@ public:
     static const int PIR_PIN = 13;
     static const int DHT_PIN = 4;
     static const int SERVO1_PIN = 14;
-    static const int SERVO2_PIN = 16;
+    static const int SERVO2_PIN = 8;  // Cambiado del pin 16 al pin 8
     static const int MQ2_PIN = 34;
     static const int LED_RED_PIN = 25;
     static const int LED_GREEN_PIN = 26;
